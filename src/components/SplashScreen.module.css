@@ -1,0 +1,385 @@
+.splash {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(30, 155, 255, 0.16), transparent 28%),
+    radial-gradient(circle at 68% 48%, rgba(127, 61, 242, 0.18), transparent 30%),
+    radial-gradient(circle at 35% 55%, rgba(255, 53, 211, 0.08), transparent 28%),
+    #020712;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5000;
+  overflow: hidden;
+  animation: splashFadeOut 0.9s ease forwards 3.45s;
+}
+
+.grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.18;
+  background-image:
+    linear-gradient(rgba(36, 230, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(36, 230, 255, 0.08) 1px, transparent 1px);
+  background-size: 58px 58px;
+  mask-image: radial-gradient(circle at center, black, transparent 72%);
+  animation: gridMove 7s linear infinite;
+}
+
+.glowOne,
+.glowTwo,
+.glowThree {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  animation: glowFloat 6s ease-in-out infinite;
+}
+
+.glowOne {
+  width: 340px;
+  height: 340px;
+  background: rgba(0, 180, 255, 0.22);
+  left: 15%;
+  top: 18%;
+}
+
+.glowTwo {
+  width: 400px;
+  height: 400px;
+  background: rgba(127, 61, 242, 0.24);
+  right: 12%;
+  bottom: 14%;
+  animation-delay: 1.2s;
+}
+
+.glowThree {
+  width: 280px;
+  height: 280px;
+  background: rgba(255, 53, 211, 0.16);
+  right: 38%;
+  top: 58%;
+  animation-delay: 2s;
+}
+
+.particles {
+  position: absolute;
+  inset: 0;
+}
+
+.particles span {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(36, 230, 255, 0.85);
+  box-shadow: 0 0 14px rgba(36, 230, 255, 0.8);
+  animation: particlePulse 2.8s ease-in-out infinite;
+}
+
+.binaryText {
+  position: absolute;
+  left: 7%;
+  bottom: 22%;
+  color: rgba(36, 230, 255, 0.48);
+  font-family: monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-shadow: 0 0 12px rgba(36, 230, 255, 0.8);
+  animation: binarySlide 3s ease-in-out infinite;
+}
+
+.logoBox {
+  position: relative;
+  width: 390px;
+  height: 390px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: logoBoxIn 1s ease forwards;
+}
+
+.splashLogo {
+  width: 260px;
+  max-width: 70%;
+  position: relative;
+  z-index: 5;
+  opacity: 0;
+  transform: scale(1.35);
+  filter:
+    drop-shadow(0 0 22px rgba(30, 155, 255, 0.65))
+    drop-shadow(0 0 45px rgba(127, 61, 242, 0.45));
+  animation:
+    logoIn 1.05s ease forwards,
+    logoPulse 1.6s ease-in-out infinite 1s,
+    logoOut 0.8s ease forwards 3.05s;
+}
+
+.orbit {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(36, 230, 255, 0.22);
+  box-shadow: 0 0 25px rgba(36, 230, 255, 0.08);
+}
+
+.orbitOne {
+  width: 280px;
+  height: 280px;
+  animation: orbitRotate 8s linear infinite;
+}
+
+.orbitTwo {
+  width: 335px;
+  height: 335px;
+  border-color: rgba(127, 61, 242, 0.25);
+  animation: orbitRotate 11s linear infinite reverse;
+}
+
+.orbitThree {
+  width: 390px;
+  height: 390px;
+  border-color: rgba(255, 53, 211, 0.16);
+  animation: orbitRotate 15s linear infinite;
+}
+
+.aiBadges {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.aiBadges span {
+  position: absolute;
+  padding: 8px 13px;
+  border-radius: 999px;
+  background: rgba(12, 28, 55, 0.86);
+  border: 1px solid rgba(36, 230, 255, 0.26);
+  color: #dff7ff;
+  font-size: 12px;
+  font-weight: 700;
+  box-shadow: 0 0 24px rgba(36, 230, 255, 0.16);
+  animation: badgeFloat 2.5s ease-in-out infinite;
+}
+
+.aiBadges span:nth-child(1) {
+  top: 60px;
+  right: 45px;
+}
+
+.aiBadges span:nth-child(2) {
+  bottom: 72px;
+  left: 35px;
+  animation-delay: 0.5s;
+}
+
+.aiBadges span:nth-child(3) {
+  bottom: 58px;
+  right: 35px;
+  animation-delay: 0.9s;
+}
+
+.loadingArea {
+  position: absolute;
+  bottom: 12%;
+  width: 320px;
+  text-align: center;
+  animation: loadingOut 0.75s ease forwards 3.1s;
+}
+
+.loadingArea p {
+  margin: 0 0 14px;
+  color: rgba(230, 242, 255, 0.78);
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+.loadingTrack {
+  width: 100%;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  border: 1px solid rgba(36, 230, 255, 0.15);
+}
+
+.loadingTrack span {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #1e9bff, #24e6ff, #7f3df2, #ff35d3);
+  box-shadow: 0 0 18px rgba(36, 230, 255, 0.65);
+  animation: loadingMove 3s ease forwards 0.35s;
+}
+
+@keyframes logoBoxIn {
+  from {
+    opacity: 0;
+    transform: scale(0.85) translateY(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes logoIn {
+  from {
+    opacity: 0;
+    transform: scale(1.35);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes logoPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.04);
+  }
+}
+
+@keyframes logoOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(0.82);
+  }
+}
+
+@keyframes splashFadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes loadingOut {
+  to {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+
+@keyframes loadingMove {
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes orbitRotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes badgeFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes particlePulse {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.7);
+  }
+}
+
+@keyframes glowFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(25px, -20px, 0) scale(1.08);
+  }
+}
+
+@keyframes gridMove {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 58px 58px;
+  }
+}
+
+@keyframes binarySlide {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: translateX(0);
+  }
+
+  50% {
+    opacity: 0.75;
+    transform: translateX(18px);
+  }
+}
+
+@media (max-width: 768px) {
+  .logoBox {
+    width: 310px;
+    height: 310px;
+  }
+
+  .splashLogo {
+    width: 200px;
+  }
+
+  .orbitOne {
+    width: 220px;
+    height: 220px;
+  }
+
+  .orbitTwo {
+    width: 270px;
+    height: 270px;
+  }
+
+  .orbitThree {
+    width: 310px;
+    height: 310px;
+  }
+
+  .loadingArea {
+    width: 260px;
+  }
+
+  .binaryText {
+    font-size: 8px;
+    left: 5%;
+    bottom: 18%;
+  }
+}
