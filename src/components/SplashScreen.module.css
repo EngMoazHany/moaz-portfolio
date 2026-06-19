@@ -86,6 +86,74 @@
   animation: binarySlide 3s ease-in-out infinite;
 }
 
+.topicIcons {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.topicIcons span {
+  position: absolute;
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  color: rgba(223, 247, 255, 0.86);
+  background: rgba(12, 28, 55, 0.58);
+  border: 1px solid rgba(36, 230, 255, 0.18);
+  box-shadow:
+    0 0 28px rgba(36, 230, 255, 0.1),
+    inset 0 0 20px rgba(127, 61, 242, 0.08);
+  animation: topicFloat 4.2s ease-in-out infinite;
+}
+
+.topicIcons svg {
+  font-size: 19px;
+}
+
+.topicOne {
+  left: 20%;
+  top: 28%;
+}
+
+.topicTwo {
+  right: 22%;
+  top: 23%;
+  animation-delay: 0.35s !important;
+}
+
+.topicThree {
+  left: 29%;
+  bottom: 25%;
+  animation-delay: 0.7s !important;
+}
+
+.topicFour {
+  right: 28%;
+  bottom: 23%;
+  animation-delay: 1.05s !important;
+}
+
+.topicFive {
+  left: 12%;
+  top: 52%;
+  animation-delay: 1.4s !important;
+}
+
+.topicSix {
+  right: 12%;
+  top: 50%;
+  animation-delay: 1.75s !important;
+}
+
+.topicSeven {
+  left: 50%;
+  bottom: 15%;
+  animation-delay: 2.1s !important;
+}
+
 .logoBox {
   position: relative;
   width: 390px;
@@ -348,6 +416,19 @@
   }
 }
 
+@keyframes topicFloat {
+  0%,
+  100% {
+    opacity: 0.42;
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    opacity: 0.88;
+    transform: translateY(-14px) rotate(4deg);
+  }
+}
+
 @media (max-width: 768px) {
   .logoBox {
     width: min(310px, 86vw);
@@ -382,6 +463,22 @@
     font-size: 8px;
     left: 5%;
     bottom: 18%;
+  }
+
+  .topicIcons span {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+  }
+
+  .topicIcons svg {
+    font-size: 16px;
+  }
+
+  .topicFive,
+  .topicSix,
+  .topicSeven {
+    display: none;
   }
 }
 

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import styles from "./SplashScreen.module.css";
 import logo from "../assets/logo.png";
+import { FaBrain, FaCode, FaPython, FaRobot } from "react-icons/fa";
+import { BsCpuFill, BsDatabaseFill, BsStars } from "react-icons/bs";
 
 const particles = Array.from({ length: 30 }, (_, index) => ({
   id: index,
@@ -9,6 +11,16 @@ const particles = Array.from({ length: 30 }, (_, index) => ({
   delay: `${(index % 10) * 0.18}s`,
   size: `${3 + (index % 4)}px`,
 }));
+
+const topicIcons = [
+  { label: "Robot", icon: <FaRobot />, className: styles.topicOne },
+  { label: "AI", icon: <BsStars />, className: styles.topicTwo },
+  { label: "ML", icon: <BsCpuFill />, className: styles.topicThree },
+  { label: "Data", icon: <BsDatabaseFill />, className: styles.topicFour },
+  { label: "Neural Network", icon: <FaBrain />, className: styles.topicFive },
+  { label: "Python", icon: <FaPython />, className: styles.topicSix },
+  { label: "Code", icon: <FaCode />, className: styles.topicSeven },
+];
 
 export default function SplashScreen() {
   const [hide, setHide] = useState(false);
@@ -48,6 +60,14 @@ export default function SplashScreen() {
 
       <div className={styles.binaryText}>
         01001101 01101111 01100001 01111010 00100000 01000001 01001001
+      </div>
+
+      <div className={styles.topicIcons}>
+        {topicIcons.map((item) => (
+          <span key={item.label} className={item.className} aria-label={item.label}>
+            {item.icon}
+          </span>
+        ))}
       </div>
 
       <div className={styles.logoBox}>

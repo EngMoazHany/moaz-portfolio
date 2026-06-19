@@ -2,18 +2,28 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   FaFacebookF,
-  FaTwitter,
   FaLinkedinIn,
   FaInstagram,
   FaGithub,
   FaBrain,
-  FaRobot,
   FaDatabase,
   FaChartLine,
   FaPython,
   FaReact,
+  FaWhatsapp,
+  FaEnvelope,
+  FaBook,
+  FaPuzzlePiece,
+  FaCode,
+  FaCertificate,
+  FaServer,
+  FaTools,
+  FaProjectDiagram,
+  FaGraduationCap,
+  FaBriefcase,
+  FaUniversity,
 } from "react-icons/fa";
-import { BsCpuFill, BsStars } from "react-icons/bs";
+import { BsCpuFill, BsStars, BsSendFill } from "react-icons/bs";
 import "./App.css";
 import logo from "./assets/logo.png";
 import SplashScreen from "./components/SplashScreen";
@@ -31,48 +41,251 @@ import project3 from "./assets/Project3.png";
 import cert1 from "./assets/cert1.png";
 import cert2 from "./assets/cert2.png";
 import cert3 from "./assets/cert3.png";
+import cert4 from "./assets/cert4.png";
+import resume from "./assets/resume.pdf";
 
 const projects = [
   {
     title: "FINEXA",
-    desc: "AI-powered personal finance management platform using FastAPI, forecasting models, smart saving recommendations, and backend AI integration.",
-    img: project1,
-    tags: ["AI", "FastAPI", "Forecasting", "ML"],
+    role: "Graduation Project | AI/ML Engineer & Backend Integration",
+    desc: "AI-powered personal finance management platform with a FastAPI forecasting microservice, smart saving recommendations, and backend AI integration through ASP.NET Core.",
+    gallery: [project1, project2, project3],
+    tags: [
+      "Python",
+      "FastAPI",
+      "Scikit-learn",
+      "Pandas",
+      "NumPy",
+      "Random Forest",
+      "REST APIs",
+      "ASP.NET Core",
+      "Vercel",
+    ],
+    details: [
+      "Developed and integrated a FastAPI AI microservice for personal finance forecasting and smart saving recommendations.",
+      "Built an expense forecasting pipeline using Python, pandas, NumPy, and scikit-learn.",
+      "Trained a Random Forest Regression model with lag features, rolling averages, category encoding, and log-target transformation.",
+      "Designed an explainable Smart Saving Plan Advisor with financial guardrails and recommendation logic.",
+      "Integrated the AI service through the main ASP.NET Core backend rather than direct frontend communication.",
+    ],
     icon: <FaBrain />,
   },
   {
-    title: "Student Performance",
-    desc: "Machine Learning app using regression and neural networks with preprocessing, model evaluation, callbacks, and Streamlit deployment.",
-    img: project2,
-    tags: ["Python", "Keras", "Streamlit", "Regression"],
+    title: "Student Performance Predictor",
+    desc: "Regression and Neural Network model with preprocessing, Early Stopping, LR Scheduler, Dropout, and Streamlit deployment.",
+    tags: ["Regression", "Neural Networks", "Keras", "Streamlit"],
     icon: <FaChartLine />,
   },
   {
     title: "Sudoku Solver",
-    desc: "Hybrid AI solver using Genetic Algorithm and Backtracking to optimize solving time and improve solution quality.",
-    img: project3,
-    tags: ["AI", "GA", "Backtracking", "Optimization"],
+    desc: "Hybrid solver using Genetic Algorithm including mutation, crossover, fitness plus classical Backtracking to optimize solving time.",
+    tags: ["Genetic Algorithm", "Backtracking", "Fitness", "Optimization"],
+    icon: <FaPuzzlePiece />,
+  },
+  {
+    title: "Data Mining Project",
+    desc: "Applied Decision Tree, SVM, and KNN with preprocessing including scaling and encoding, and evaluation via cross-validation.",
+    tags: ["Decision Tree", "SVM", "KNN", "Cross Validation"],
+    icon: <FaDatabase />,
+  },
+  {
+    title: "BookSwap",
+    desc: "React web app with components, hooks, state management, and REST API integration.",
+    tags: ["React", "Hooks", "REST API", "Web App"],
+    icon: <FaReact />,
+  },
+  {
+    title: "MoneyTracker",
+    desc: "Responsive React app for expense tracking with reusable components and state-based logic.",
+    tags: ["React", "Finance", "State", "Responsive"],
+    icon: <FaBook />,
+  },
+];
+
+const experience = [
+  {
+    title: "Norm Production",
+    role: "Software Engineer / AI & Web Development",
+    type: "Professional Experience",
+    desc: "Worked on production-ready web applications and AI-integrated solutions.",
+    icon: <FaBriefcase />,
+  },
+  {
+    title: "DEPI - Microsoft ML Engineer Track",
+    type: "Training Program",
+    date: "2025 - Present",
+    desc: "Machine Learning Engineer training track focused on ML, Deep Learning, NLP, and MLOps growth.",
+    icon: <FaGraduationCap />,
+  },
+  {
+    title: "Time Management & Shopping Behavior - EG Bank",
+    type: "Training Session",
+    desc: "Training session focused on time management and shopping behavior.",
     icon: <BsCpuFill />,
   },
 ];
 
 const certificates = [
-  { img: cert1, title: "IBM Machine Learning" },
-  { img: cert2, title: "Deep Learning with Keras" },
-  { img: cert3, title: "DEPI ML Engineer Track" },
+  {
+    title: "IBM – Machine Learning with Python",
+    date: "2025",
+    image: cert1,
+    type: "IBM",
+  },
+  {
+    title: "IBM – Introduction to Deep Learning & Neural Networks with Keras",
+    date: "2025",
+    image: cert2,
+    type: "IBM",
+  },
+  {
+    title: "IBM – Deep Learning with Keras and TensorFlow",
+    date: "2026",
+    image: cert3,
+    type: "IBM",
+  },
+  {
+    title: "Introduction to Artificial Intelligence & Applications",
+    subtitle: "Zewail City – Certificate of Attendance",
+    date: "August 2023",
+    image: cert4,
+    type: "Zewail",
+  },
+  {
+    title: "DEPI – Microsoft ML Engineer Track",
+    date: "2025–Present",
+    image: null,
+    type: "Training",
+  },
+  {
+    title: "Time Management & Shopping Behavior",
+    subtitle: "EG Bank Training Session",
+    image: null,
+    type: "Training",
+  },
 ];
 
 const skills = [
-  { name: "Python", icon: <FaPython /> },
-  { name: "Machine Learning", icon: <FaBrain /> },
-  { name: "FastAPI", icon: <BsCpuFill /> },
-  { name: "React", icon: <FaReact /> },
-  { name: "Scikit-learn", icon: <FaChartLine /> },
-  { name: "Pandas", icon: <FaDatabase /> },
-  { name: "NumPy", icon: <BsStars /> },
-  { name: "SQL", icon: <FaDatabase /> },
-  { name: "GitHub", icon: <FaGithub /> },
-  { name: "AI Integration", icon: <FaRobot /> },
+  {
+    title: "Machine Learning",
+    icon: <FaBrain />,
+    items: [
+      "Supervised Learning",
+      "Unsupervised Learning",
+      "Regression",
+      "Classification",
+      "Clustering",
+      "Feature Engineering",
+      "Data Preprocessing",
+      "Model Evaluation",
+      "Cross Validation",
+      "Scikit-learn",
+    ],
+  },
+  {
+    title: "Python for AI",
+    icon: <FaPython />,
+    items: ["Python", "NumPy", "Pandas", "Scikit-learn", "Matplotlib"],
+  },
+  {
+    title: "Deep Learning",
+    icon: <BsCpuFill />,
+    items: [
+      "Neural Networks with Keras",
+      "Activation Functions",
+      "Loss Functions",
+      "Basics of CNNs",
+      "Basics of NLP Models",
+    ],
+  },
+  {
+    title: "Backend / APIs",
+    icon: <FaServer />,
+    items: [
+      "FastAPI",
+      "REST APIs",
+      "ASP.NET Core basics",
+      "Swagger documentation",
+      "Backend integration",
+    ],
+  },
+  {
+    title: "Frontend",
+    icon: <FaReact />,
+    items: ["React", "Hooks", "State", "Components", "HTML5", "CSS3"],
+  },
+  {
+    title: "Databases",
+    icon: <FaDatabase />,
+    items: ["SQL Server", "MySQL", "MongoDB", "Realtime DB"],
+  },
+  {
+    title: "Tools",
+    icon: <FaTools />,
+    items: ["Git", "GitHub", "Docker", "Postman", "VS Code"],
+  },
+  {
+    title: "Programming Languages",
+    icon: <FaCode />,
+    items: ["Python", "C", "C++", "C#", "Java OOP", "PHP", "HTML / HTML5", "CSS / CSS3"],
+  },
+  {
+    title: "Software Engineering",
+    icon: <FaProjectDiagram />,
+    items: ["OOP", "SDLC", "Design Patterns", "UML Diagrams"],
+  },
+  {
+    title: "Soft Skills",
+    icon: <BsStars />,
+    items: [
+      "Problem Solving",
+      "Analytical Thinking",
+      "Fast Learning",
+      "Communication",
+      "Teamwork",
+      "Time Management",
+    ],
+  },
+];
+
+const socialLinks = [
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/share/1EPE3LTZQU/",
+    icon: <FaFacebookF />,
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/m.o.a.z.h.a.n.y?igsh=c2lseWozcGZqd3lx",
+    icon: <FaInstagram />,
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/moazhany27",
+    icon: <FaLinkedinIn />,
+  },
+  {
+    label: "GitHub",
+    href: "https://github.com/EngMoazHany",
+    icon: <FaGithub />,
+  },
+  {
+    label: "WhatsApp",
+    href: "https://wa.me/201557992912",
+    icon: <FaWhatsapp />,
+  },
+  {
+    label: "Email",
+    href: "mailto:moazhany27@gmail.com",
+    icon: <FaEnvelope />,
+  },
+];
+
+const quickQuestions = [
+  "What are Moaz's strongest AI/ML skills?",
+  "Tell me about the FINEXA graduation project.",
+  "Which technologies does Moaz use for backend APIs?",
+  "How can I contact Moaz?",
 ];
 
 const fadeUp = {
@@ -100,7 +313,7 @@ function App() {
   const [botMessages, setBotMessages] = useState([
     {
       from: "bot",
-      text: "Hi Moaz 👋 Ask me anything about projects, skills, AI, ML, or the portfolio.",
+      text: "Portfolio assistant ready. Ask about FINEXA, skills, training, certificates, or contact details.",
     },
   ]);
 
@@ -113,7 +326,7 @@ function App() {
       { from: "user", text: value },
       {
         from: "bot",
-        text: "API is not connected yet. Your message is saved locally until we connect the real agent.",
+        text: "API is not connected yet. Your message is saved locally until the real portfolio agent is connected.",
       },
     ]);
 
@@ -127,12 +340,13 @@ function App() {
       <AnimatedBackground />
 
       <nav className="navbar">
-<a className="logo" href="#home">
-  <img src={logo} alt="Moaz Hany Logo" />
-</a>
+        <a className="logo" href="#home">
+          <img src={logo} alt="Moaz Hany Logo" />
+        </a>
 
         <div className="nav-links">
           <a href="#about">About me</a>
+          <a href="#experience">Experience</a>
           <a href="#projects">Projects</a>
           <a href="#certificates">Certificates</a>
           <a href="#skills">Skills</a>
@@ -157,18 +371,23 @@ function App() {
           <motion.h1 variants={fadeUp}>{"{Moaz Hany} "}</motion.h1>
 
           <motion.p variants={fadeUp}>
-            I’m an AI/ML Engineer specializing in intelligent web applications,
+            I&apos;m an AI/ML Engineer specializing in intelligent web applications,
             machine learning solutions, FastAPI microservices, and
             production-ready AI systems.
           </motion.p>
 
           <motion.div className="hero-buttons" variants={fadeUp}>
-            <a className="btn primary" href="/resume.pdf" download>
+            <a className="btn primary" href={resume} download>
               Download CV
             </a>
 
-            <a className="btn outline" href="#contact">
-              Start Project
+            <a
+              className="btn outline"
+              href="https://wa.me/201557992912"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Get in touch
             </a>
           </motion.div>
         </motion.div>
@@ -186,8 +405,6 @@ function App() {
           <FloatingIcons />
 
           <img src={hero} alt="Moaz Hany" className="hero-image" />
-
-          
         </motion.div>
       </section>
 
@@ -224,20 +441,73 @@ function App() {
           </div>
 
           <div className="terminal-input">
-            <span>✨</span>
+            <span>
+              <BsStars />
+            </span>
             <input value="AI profile initialized..." readOnly />
             <i></i>
           </div>
 
           <div className="terminal-content">
             <p>
-              Moaz Hany is a passionate Computer Science and Artificial
-              Intelligence student focused on AI, Machine Learning, backend
-              integration, and modern web development. He works with Python,
-              FastAPI, Scikit-learn, React, and production-ready APIs to build
-              intelligent and useful applications.
+              AI/ML Engineer with hands-on experience building machine learning
+              solutions, FastAPI microservices, and production-ready web
+              applications. Experienced in forecasting models, REST APIs, AI
+              integration, and data-driven applications. Professional experience
+              at Norm Production and graduate of Capital University 2026.
             </p>
+
+            <div className="profile-facts">
+              <span>
+                <FaUniversity /> Capital University 2026
+              </span>
+              <span>
+                <FaDatabase /> Information Systems
+              </span>
+              <span>
+                <FaBrain /> ML, Data Mining, Algorithms
+              </span>
+            </div>
           </div>
+        </motion.div>
+      </section>
+
+      <section className="experience-section section" id="experience">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.25 }}
+        >
+          <h2>Experience / Training</h2>
+
+          <p className="section-subtitle">
+            Professional work, AI training, and focused sessions supporting
+            practical engineering growth.
+          </p>
+        </motion.div>
+
+        <motion.div
+          className="experience-grid"
+          variants={stagger}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          {experience.map((item) => (
+            <motion.article
+              className="experience-card glass-card"
+              key={item.title}
+              variants={fadeUp}
+            >
+              <div className="experience-icon">{item.icon}</div>
+              <span className="experience-type">{item.type}</span>
+              <h3>{item.title}</h3>
+              {item.role && <p className="experience-role">{item.role}</p>}
+              {item.date && <p className="experience-date">{item.date}</p>}
+              <p>{item.desc}</p>
+            </motion.article>
+          ))}
         </motion.div>
       </section>
 
@@ -289,7 +559,11 @@ function App() {
                     activeProject.title === project.title ? "active" : ""
                   }
                 >
-                  <img src={project.img} alt={project.title} />
+                  {project.gallery ? (
+                    <img src={project.gallery[0]} alt={project.title} />
+                  ) : (
+                    <span className="tab-icon">{project.icon}</span>
+                  )}
                   <span>{project.title}</span>
                 </button>
               ))}
@@ -308,7 +582,18 @@ function App() {
               >
                 <div className="project-icon">{activeProject.icon}</div>
                 <h3>{activeProject.title}</h3>
+                {activeProject.role && (
+                  <p className="project-role">{activeProject.role}</p>
+                )}
                 <p>{activeProject.desc}</p>
+
+                {activeProject.details && (
+                  <ul className="project-details">
+                    {activeProject.details.map((detail) => (
+                      <li key={detail}>{detail}</li>
+                    ))}
+                  </ul>
+                )}
 
                 <div className="tags">
                   {activeProject.tags.map((tag) => (
@@ -327,16 +612,40 @@ function App() {
             transition={{ duration: 0.75 }}
           >
             <AnimatePresence mode="wait">
-              <motion.img
-                key={activeProject.img}
-                src={activeProject.img}
-                alt={activeProject.title}
-                onClick={() => setModalImg(activeProject.img)}
-                initial={{ opacity: 0, scale: 0.94 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.94 }}
-                transition={{ duration: 0.35 }}
-              />
+              {activeProject.gallery ? (
+                <motion.div
+                  key={activeProject.title}
+                  className="project-gallery"
+                  initial={{ opacity: 0, scale: 0.94 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.94 }}
+                  transition={{ duration: 0.35 }}
+                >
+                  {activeProject.gallery.map((image, index) => (
+                    <button
+                      key={image}
+                      type="button"
+                      className={index === 0 ? "main-shot" : ""}
+                      onClick={() => setModalImg(image)}
+                    >
+                      <img src={image} alt={`${activeProject.title} preview ${index + 1}`} />
+                    </button>
+                  ))}
+                </motion.div>
+              ) : (
+                <motion.div
+                  key={activeProject.title}
+                  className="project-icon-preview"
+                  initial={{ opacity: 0, scale: 0.94 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.94 }}
+                  transition={{ duration: 0.35 }}
+                >
+                  <div>{activeProject.icon}</div>
+                  <h3>{activeProject.title}</h3>
+                  <p>{activeProject.desc}</p>
+                </motion.div>
+              )}
             </AnimatePresence>
           </motion.div>
         </div>
@@ -358,41 +667,39 @@ function App() {
         </motion.div>
 
         <motion.div
-          className="certificates-row"
+          className="certificates-grid"
           variants={stagger}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.25 }}
         >
-          <motion.div className="cert-card small" variants={fadeUp}>
-            <img
-              src={certificates[0].img}
-              alt={certificates[0].title}
-              onClick={() => setModalImg(certificates[0].img)}
-            />
-          </motion.div>
+          {certificates.map((certificate) => (
+            <motion.article
+              className={`cert-card glass-card ${certificate.image ? "has-image" : "no-image"}`}
+              key={certificate.title}
+              variants={fadeUp}
+            >
+              <div className="cert-title">
+                <FaCertificate />
+                <h3>{certificate.title}</h3>
+                {certificate.subtitle && <p>{certificate.subtitle}</p>}
+                {certificate.date && <span>{certificate.date}</span>}
+              </div>
 
-          <div className="cert-connector left"></div>
-
-          <motion.div className="cert-card main" variants={fadeUp}>
-            <img
-              src={certificates[1].img}
-              alt={certificates[1].title}
-              onClick={() => setModalImg(certificates[1].img)}
-            />
-          </motion.div>
-
-          <div className="cert-dot"></div>
-
-          <div className="cert-connector right"></div>
-
-          <motion.div className="cert-card small" variants={fadeUp}>
-            <img
-              src={certificates[2].img}
-              alt={certificates[2].title}
-              onClick={() => setModalImg(certificates[2].img)}
-            />
-          </motion.div>
+              {certificate.image ? (
+                <img
+                  src={certificate.image}
+                  alt={certificate.title}
+                  onClick={() => setModalImg(certificate.image)}
+                />
+              ) : (
+                <div className="cert-placeholder">
+                  <FaCertificate />
+                  <span>{certificate.type}</span>
+                </div>
+              )}
+            </motion.article>
+          ))}
         </motion.div>
       </section>
 
@@ -419,9 +726,14 @@ function App() {
           viewport={{ once: true, amount: 0.2 }}
         >
           {skills.map((skill) => (
-            <motion.div className="skill-card" key={skill.name} variants={fadeUp}>
+            <motion.div className="skill-card" key={skill.title} variants={fadeUp}>
               <div className="skill-icon">{skill.icon}</div>
-              <span>{skill.name}</span>
+              <span>{skill.title}</span>
+              <div className="skill-tags">
+                {skill.items.map((item) => (
+                  <em key={item}>{item}</em>
+                ))}
+              </div>
             </motion.div>
           ))}
         </motion.div>
@@ -436,9 +748,22 @@ function App() {
           viewport={{ once: true, amount: 0.25 }}
         >
           <h2>Ask my bot</h2>
+          <p className="bot-intro">
+            Hi Moaz 👋 Ask me anything about projects, skills, AI, ML, or the portfolio.
+          </p>
+
+          <div className="mini-chat">
+            {botMessages.map((msg, index) => (
+              <div key={`${msg.from}-${index}`} className={`mini-message ${msg.from}`}>
+                {msg.text}
+              </div>
+            ))}
+          </div>
 
           <div className="simple-bot-input">
-            <span>✨</span>
+            <span>
+              <BsStars />
+            </span>
 
             <input
               value={botInput}
@@ -447,39 +772,18 @@ function App() {
               placeholder="Ask anything about Moaz..."
             />
 
-            <button type="button" onClick={sendMessage}>
-              ➤
+            <button type="button" onClick={sendMessage} aria-label="Send message">
+              <BsSendFill />
             </button>
-          </div>
-
-          <div className="mini-chat">
-            {botMessages.map((msg, index) => (
-              <div key={index} className={`mini-message ${msg.from}`}>
-                {msg.text}
-              </div>
-            ))}
           </div>
 
           <div className="quick-questions">
-            <button
-              type="button"
-              onClick={() =>
-                setBotInput("What are the strongest skills of Moaz?")
-              }
-            >
-              what are the point of strength of Moaz ?
-              <small>just the technical once</small>
-            </button>
-
-            <button
-              type="button"
-              onClick={() =>
-                setBotInput("What are the weaknesses of Moaz?")
-              }
-            >
-              what are the point of weakness of Moaz ?
-              <small>just the technical once</small>
-            </button>
+            {quickQuestions.map((question) => (
+              <button type="button" key={question} onClick={() => setBotInput(question)}>
+                {question}
+                <small>Suggested question</small>
+              </button>
+            ))}
           </div>
 
           <div className="bot-cta">
@@ -487,7 +791,9 @@ function App() {
 
             <a
               className="btn primary small-btn"
-              href="mailto:moazhany27@gmail.com"
+              href="https://wa.me/201557992912"
+              target="_blank"
+              rel="noreferrer"
             >
               Get in touch
             </a>
@@ -513,46 +819,31 @@ function App() {
           <h3>Follow me at :</h3>
 
           <div className="socials">
-            <a href="https://facebook.com" target="_blank" rel="noreferrer">
-              <FaFacebookF />
-            </a>
-
-            <a href="https://twitter.com" target="_blank" rel="noreferrer">
-              <FaTwitter />
-            </a>
-
-            <a
-              href="https://linkedin.com/in/moazhany27"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <FaLinkedinIn />
-            </a>
-
-            <a href="https://instagram.com" target="_blank" rel="noreferrer">
-              <FaInstagram />
-            </a>
-
-            <a
-              href="https://github.com/EngMoazHany"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <FaGithub />
-            </a>
+            {socialLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                target={link.href.startsWith("mailto:") ? undefined : "_blank"}
+                rel={link.href.startsWith("mailto:") ? undefined : "noreferrer"}
+                aria-label={link.label}
+                title={link.label}
+              >
+                {link.icon}
+              </a>
+            ))}
           </div>
         </div>
 
         <div className="footer-info">
-          <p>+20 1557992912</p>
-          <p>moazhany27@gmail.com</p>
-          <p>Cairo, Egypt</p>
+          <p>Phone: +20 1557992912</p>
+          <p>Email: moazhany27@gmail.com</p>
+          <p>Location: Cairo, Egypt</p>
         </div>
 
         <div className="footer-links">
-          <a href="#projects">Articles</a>
-          <a href="#certificates">Courses</a>
-          <a href="#skills">Books</a>
+          <a href="#experience">Experience</a>
+          <a href="#projects">Projects</a>
+          <a href="#certificates">Certificates</a>
         </div>
 
         <p className="copyright">© Copyright 2026 Made by Moaz</p>
