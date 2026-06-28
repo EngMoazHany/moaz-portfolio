@@ -288,6 +288,10 @@ const quickQuestions = [
   "How can I contact Moaz?",
 ];
 
+const API_URL = import.meta.env.VITE_CHAT_API_URL || "http://localhost:5000";
+const CHAT_ERROR_MESSAGE =
+  "Sorry, the chat service is currently unavailable. Please try again later.";
+
 const fadeUp = {
   hidden: { opacity: 0, y: 35 },
   show: {
@@ -310,6 +314,7 @@ function App() {
   const [activeProject, setActiveProject] = useState(projects[0]);
   const [modalImg, setModalImg] = useState(null);
   const [botInput, setBotInput] = useState("");
+  const [isBotLoading, setIsBotLoading] = useState(false);
   const [botMessages, setBotMessages] = useState([
     {
       from: "bot",
@@ -317,20 +322,50 @@ function App() {
     },
   ]);
 
-  const sendMessage = () => {
-    const value = botInput.trim();
-    if (!value) return;
+  const toApiMessages = (messages) =>
+    messages.map((message) => ({
+      role: message.from === "user" ? "user" : "assistant",
+      content: message.text,
+    }));
 
-    setBotMessages((prev) => [
-      ...prev,
-      { from: "user", text: value },
-      {
-        from: "bot",
-        text: "API is not connected yet. Your message is saved locally until the real portfolio agent is connected.",
-      },
-    ]);
+  const sendMessage = async (messageText = botInput) => {
+    const value = messageText.trim();
+    if (!value || isBotLoading) return;
 
     setBotInput("");
+    setIsBotLoading(true);
+
+    const userMessage = { from: "user", text: value };
+    const typingMessage = { from: "bot", text: "Typing..." };
+    const conversationHistory = [...botMessages, userMessage];
+
+    setBotMessages([...conversationHistory, typingMessage]);
+
+    try {
+      const response = await fetch(`${API_URL}/api/chat`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: value,
+          messages: toApiMessages(conversationHistory),
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Chat request failed");
+      }
+
+      const data = await response.json();
+      const reply = data?.reply?.trim() || CHAT_ERROR_MESSAGE;
+
+      setBotMessages([...conversationHistory, { from: "bot", text: reply }]);
+    } catch {
+      setBotMessages([...conversationHistory, { from: "bot", text: CHAT_ERROR_MESSAGE }]);
+    } finally {
+      setIsBotLoading(false);
+    }
   };
 
   return (
@@ -779,7 +814,7 @@ function App() {
 
           <div className="quick-questions">
             {quickQuestions.map((question) => (
-              <button type="button" key={question} onClick={() => setBotInput(question)}>
+              <button type="button" key={question} onClick={() => sendMessage(question)}>
                 {question}
                 <small>Suggested question</small>
               </button>
