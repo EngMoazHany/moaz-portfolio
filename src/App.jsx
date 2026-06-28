@@ -320,7 +320,7 @@ function App() {
   const [modalImg, setModalImg] = useState(null);
   const [botInput, setBotInput] = useState("");
   const [isBotLoading, setIsBotLoading] = useState(false);
-  const messagesEndRef = useRef(null);
+  const messagesContainerRef = useRef(null);
   const isBotLoadingRef = useRef(false);
   const [botMessages, setBotMessages] = useState([
     {
@@ -330,7 +330,13 @@ function App() {
   ]);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    const container = messagesContainerRef.current;
+    if (!container) return;
+
+    container.scrollTo({
+      top: container.scrollHeight,
+      behavior: "smooth",
+    });
   }, [botMessages, isBotLoading]);
 
   const toApiMessages = (messages) =>
@@ -809,7 +815,7 @@ function App() {
             Hi Moaz 👋 Ask me anything about projects, skills, AI, ML, or the portfolio.
           </p>
 
-          <div className="mini-chat">
+          <div className="mini-chat" ref={messagesContainerRef}>
             {botMessages.map((msg, index) => (
               <div
                 key={`${msg.from}-${index}`}
@@ -822,7 +828,6 @@ function App() {
                 {msg.text}
               </div>
             ))}
-            <div ref={messagesEndRef} />
           </div>
 
           <form className="simple-bot-input" onSubmit={handleSubmit}>
