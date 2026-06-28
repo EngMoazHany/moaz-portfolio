@@ -356,33 +356,39 @@ function App() {
     const isArabic = isArabicText(value);
     const userMessage = { from: "user", text: value };
     const typingMessage = { from: "bot", text: isArabic ? "بيكتب..." : "Typing..." };
-    const conversationHistory = [...botMessages, userMessage];
+    const uiConversationHistory = [...botMessages, userMessage];
+    const conversationHistory = toApiMessages(uiConversationHistory);
+    const chatApiUrl = `${API_URL}/api/chat`;
 
-    setBotMessages([...conversationHistory, typingMessage]);
+    setBotMessages([...uiConversationHistory, typingMessage]);
 
     try {
-      const response = await fetch(`${API_URL}/api/chat`, {
+      console.log("Chat API URL:", chatApiUrl);
+
+      const response = await fetch(chatApiUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           message: value,
-          messages: toApiMessages(conversationHistory),
+          messages: conversationHistory,
         }),
       });
 
       if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Chat API error:", response.status, errorText);
         throw new Error("Chat request failed");
       }
 
       const data = await response.json();
       const reply = data?.reply?.trim() || (isArabic ? CHAT_ERROR_MESSAGE_AR : CHAT_ERROR_MESSAGE);
 
-      setBotMessages([...conversationHistory, { from: "bot", text: reply }]);
+      setBotMessages([...uiConversationHistory, { from: "bot", text: reply }]);
     } catch {
       setBotMessages([
-        ...conversationHistory,
+        ...uiConversationHistory,
         { from: "bot", text: isArabic ? CHAT_ERROR_MESSAGE_AR : CHAT_ERROR_MESSAGE },
       ]);
     } finally {
