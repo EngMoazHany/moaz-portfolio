@@ -2573,6 +2573,126 @@ input {
 }
 
 @media (max-width: 768px) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  .section,
+  .about-section,
+  .terminal-card,
+  .browser-top,
+  .terminal-input,
+  .terminal-content,
+  .profile-facts,
+  .profile-facts span {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .about-section {
+    width: 100%;
+    padding-inline: 16px;
+    overflow-x: hidden;
+  }
+
+  .terminal-card {
+    width: 100%;
+    padding: 0 18px 28px;
+    overflow: hidden;
+  }
+
+  .browser-top {
+    width: 100%;
+    min-width: 0;
+    gap: 10px;
+  }
+
+  .url {
+    width: auto;
+    max-width: min(55vw, 220px);
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 10px;
+  }
+
+  .terminal-input,
+  .terminal-content {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .terminal-input {
+    padding-inline: 14px;
+  }
+
+  .terminal-input input {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .terminal-content {
+    padding: 18px;
+    font-size: clamp(14px, 3.5vw, 15px);
+    line-height: 1.65;
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
+  .profile-facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .profile-facts span {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-section {
+    padding-inline: 10px;
+  }
+
+  .terminal-card {
+    padding: 0 14px 22px;
+    border-radius: 14px;
+  }
+
+  .browser-top {
+    grid-template-columns: 64px minmax(0, 1fr);
+  }
+
+  .url {
+    max-width: min(52vw, 170px);
+    font-size: 9px;
+  }
+
+  .terminal-input {
+    padding-inline: 12px;
+  }
+
+  .terminal-content {
+    padding: 14px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .profile-facts {
+    gap: 8px;
+  }
+
+  .profile-facts span {
+    padding: 7px 10px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 768px) {
   .hero-section {
     display: flex;
     flex-direction: column;
