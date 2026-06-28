@@ -1411,6 +1411,24 @@ input {
   border-radius: 12px;
   font-size: 11px;
   line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.mini-message.arabic-message {
+  text-align: right;
+  direction: rtl;
+  line-height: 1.8;
+  letter-spacing: 0;
+  unicode-bidi: plaintext;
+}
+
+.mini-message.english-message {
+  text-align: left;
+  direction: ltr;
+  line-height: 1.6;
+  unicode-bidi: plaintext;
 }
 
 .mini-message.user {

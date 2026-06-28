@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   FaFacebookF,
@@ -291,6 +291,11 @@ const quickQuestions = [
 const API_URL = import.meta.env.VITE_CHAT_API_URL || "http://localhost:5000";
 const CHAT_ERROR_MESSAGE =
   "Sorry, the chat service is currently unavailable. Please try again later.";
+const CHAT_ERROR_MESSAGE_AR = "حصلت مشكلة بسيطة في الشات. جرّب تاني بعد لحظات.";
+
+function isArabicText(text) {
+  return /[\u0600-\u06FF]/.test(text);
+}
 
 const fadeUp = {
   hidden: { opacity: 0, y: 35 },
@@ -315,12 +320,18 @@ function App() {
   const [modalImg, setModalImg] = useState(null);
   const [botInput, setBotInput] = useState("");
   const [isBotLoading, setIsBotLoading] = useState(false);
+  const messagesEndRef = useRef(null);
+  const isBotLoadingRef = useRef(false);
   const [botMessages, setBotMessages] = useState([
     {
       from: "bot",
       text: "Portfolio assistant ready. Ask about FINEXA, skills, training, certificates, or contact details.",
     },
   ]);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [botMessages, isBotLoading]);
 
   const toApiMessages = (messages) =>
     messages.map((message) => ({
@@ -330,13 +341,15 @@ function App() {
 
   const sendMessage = async (messageText = botInput) => {
     const value = messageText.trim();
-    if (!value || isBotLoading) return;
+    if (!value || isBotLoadingRef.current) return;
 
     setBotInput("");
+    isBotLoadingRef.current = true;
     setIsBotLoading(true);
 
+    const isArabic = isArabicText(value);
     const userMessage = { from: "user", text: value };
-    const typingMessage = { from: "bot", text: "Typing..." };
+    const typingMessage = { from: "bot", text: isArabic ? "بيكتب..." : "Typing..." };
     const conversationHistory = [...botMessages, userMessage];
 
     setBotMessages([...conversationHistory, typingMessage]);
@@ -358,14 +371,23 @@ function App() {
       }
 
       const data = await response.json();
-      const reply = data?.reply?.trim() || CHAT_ERROR_MESSAGE;
+      const reply = data?.reply?.trim() || (isArabic ? CHAT_ERROR_MESSAGE_AR : CHAT_ERROR_MESSAGE);
 
       setBotMessages([...conversationHistory, { from: "bot", text: reply }]);
     } catch {
-      setBotMessages([...conversationHistory, { from: "bot", text: CHAT_ERROR_MESSAGE }]);
+      setBotMessages([
+        ...conversationHistory,
+        { from: "bot", text: isArabic ? CHAT_ERROR_MESSAGE_AR : CHAT_ERROR_MESSAGE },
+      ]);
     } finally {
+      isBotLoadingRef.current = false;
       setIsBotLoading(false);
     }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    sendMessage();
   };
 
   return (
@@ -789,13 +811,21 @@ function App() {
 
           <div className="mini-chat">
             {botMessages.map((msg, index) => (
-              <div key={`${msg.from}-${index}`} className={`mini-message ${msg.from}`}>
+              <div
+                key={`${msg.from}-${index}`}
+                className={`mini-message ${msg.from} ${
+                  isArabicText(msg.text) ? "arabic-message" : "english-message"
+                }`}
+                dir={isArabicText(msg.text) ? "rtl" : "ltr"}
+                lang={isArabicText(msg.text) ? "ar" : "en"}
+              >
                 {msg.text}
               </div>
             ))}
+            <div ref={messagesEndRef} />
           </div>
 
-          <div className="simple-bot-input">
+          <form className="simple-bot-input" onSubmit={handleSubmit}>
             <span>
               <BsStars />
             </span>
@@ -803,14 +833,13 @@ function App() {
             <input
               value={botInput}
               onChange={(e) => setBotInput(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && sendMessage()}
               placeholder="Ask anything about Moaz..."
             />
 
-            <button type="button" onClick={sendMessage} aria-label="Send message">
+            <button type="submit" aria-label="Send message">
               <BsSendFill />
             </button>
-          </div>
+          </form>
 
           <div className="quick-questions">
             {quickQuestions.map((question) => (
