@@ -288,7 +288,9 @@ const quickQuestions = [
   "How can I contact Moaz?",
 ];
 
-const API_URL = import.meta.env.VITE_CHAT_API_URL || "http://localhost:5000";
+const API_URL =
+  import.meta.env.VITE_CHAT_API_URL ||
+  (import.meta.env.DEV ? "http://localhost:5000" : "https://api-portfolio-eta.vercel.app");
 const CHAT_ERROR_MESSAGE =
   "Sorry, the chat service is currently unavailable. Please try again later.";
 const CHAT_ERROR_MESSAGE_AR = "حصلت مشكلة بسيطة في الشات. جرّب تاني بعد لحظات.";
@@ -379,7 +381,7 @@ function App() {
       if (!response.ok) {
         const errorText = await response.text();
         console.error("Chat API error:", response.status, errorText);
-        throw new Error("Chat request failed");
+        throw new Error(errorText || "Chat API request failed");
       }
 
       const data = await response.json();
