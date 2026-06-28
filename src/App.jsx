@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import {
   FaFacebookF,
   FaLinkedinIn,
@@ -833,7 +835,22 @@ function App() {
                 dir={isArabicText(msg.text) ? "rtl" : "ltr"}
                 lang={isArabicText(msg.text) ? "ar" : "en"}
               >
-                {msg.text}
+                <div className="message-content">
+                  {msg.from === "bot" ? (
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
+                      components={{
+                        a: ({ node, ...props }) => (
+                          <a {...props} target="_blank" rel="noopener noreferrer" />
+                        ),
+                      }}
+                    >
+                      {msg.text}
+                    </ReactMarkdown>
+                  ) : (
+                    msg.text
+                  )}
+                </div>
               </div>
             ))}
           </div>
