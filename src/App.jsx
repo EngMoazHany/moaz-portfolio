@@ -367,7 +367,9 @@ function App() {
     setBotMessages([...uiConversationHistory, typingMessage]);
 
     try {
-      console.log("Chat API URL:", chatApiUrl);
+      if (import.meta.env.DEV) {
+        console.log("Chat API URL:", chatApiUrl);
+      }
 
       const response = await fetch(chatApiUrl, {
         method: "POST",
@@ -382,7 +384,9 @@ function App() {
 
       if (!response.ok) {
         const errorText = await response.text();
-        console.error("Chat API error:", response.status, errorText);
+        if (import.meta.env.DEV) {
+          console.error("Chat API error:", response.status, errorText);
+        }
         throw new Error(errorText || "Chat API request failed");
       }
 
@@ -458,7 +462,7 @@ function App() {
               className="btn outline"
               href="https://wa.me/201557992912"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             >
               Get in touch
             </a>
@@ -633,7 +637,12 @@ function App() {
                   }
                 >
                   {project.gallery ? (
-                    <img src={project.gallery[0]} alt={project.title} />
+                    <img
+                      src={project.gallery[0]}
+                      alt={project.title}
+                      loading="lazy"
+                      decoding="async"
+                    />
                   ) : (
                     <span className="tab-icon">{project.icon}</span>
                   )}
@@ -701,7 +710,12 @@ function App() {
                       className={index === 0 ? "main-shot" : ""}
                       onClick={() => setModalImg(image)}
                     >
-                      <img src={image} alt={`${activeProject.title} preview ${index + 1}`} />
+                      <img
+                        src={image}
+                        alt={`${activeProject.title} preview ${index + 1}`}
+                        loading="lazy"
+                        decoding="async"
+                      />
                     </button>
                   ))}
                 </motion.div>
@@ -763,6 +777,8 @@ function App() {
                 <img
                   src={certificate.image}
                   alt={certificate.title}
+                  loading="lazy"
+                  decoding="async"
                   onClick={() => setModalImg(certificate.image)}
                 />
               ) : (
@@ -840,7 +856,7 @@ function App() {
                     <ReactMarkdown
                       remarkPlugins={[remarkGfm]}
                       components={{
-                        a: ({ node, ...props }) => (
+                        a: ({ ...props }) => (
                           <a {...props} target="_blank" rel="noopener noreferrer" />
                         ),
                       }}
@@ -887,7 +903,7 @@ function App() {
               className="btn primary small-btn"
               href="https://wa.me/201557992912"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             >
               Get in touch
             </a>
@@ -902,7 +918,7 @@ function App() {
           transition={{ duration: 0.75 }}
         >
           <div className="hello">Hello!</div>
-          <img src={robot} alt="AI Bot" />
+          <img src={robot} alt="AI Bot" loading="lazy" decoding="async" />
         </motion.div>
 
         <BinaryWaves />
@@ -918,7 +934,7 @@ function App() {
                 key={link.label}
                 href={link.href}
                 target={link.href.startsWith("mailto:") ? undefined : "_blank"}
-                rel={link.href.startsWith("mailto:") ? undefined : "noreferrer"}
+                rel={link.href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
                 aria-label={link.label}
                 title={link.label}
               >
@@ -945,7 +961,7 @@ function App() {
 
       {modalImg && (
         <div className="modal" onClick={() => setModalImg(null)}>
-          <button className="close-modal">×</button>
+          <button className="close-modal" aria-label="Close project preview">×</button>
 
           <img
             src={modalImg}
