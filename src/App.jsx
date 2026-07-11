@@ -189,6 +189,9 @@ const skills = [
       "Model Evaluation",
       "Cross Validation",
       "Scikit-learn",
+      "Prompt Engineering",
+      "LLM Basics",
+      "AI Chatbot Design",
     ],
   },
   {
