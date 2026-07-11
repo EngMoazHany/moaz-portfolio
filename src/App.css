@@ -906,6 +906,30 @@ input {
   font-weight: 700;
 }
 
+.project-brand-badge {
+  width: fit-content;
+  max-width: 100%;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  margin: 0 0 14px;
+  border-radius: 999px;
+  background: rgba(36, 230, 255, 0.08);
+  border: 1px solid rgba(36, 230, 255, 0.18);
+  color: #dce8ff;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.project-brand-badge svg {
+  flex: 0 0 auto;
+  color: var(--cyan);
+  font-size: 14px;
+}
+
 .project-info p {
   color: var(--muted);
   line-height: 1.75;
@@ -920,6 +944,50 @@ input {
   font-size: 13px !important;
   font-weight: 600;
   margin: -3px 0 14px;
+}
+
+.project-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 18px;
+  max-width: 100%;
+}
+
+.project-actions a {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 10px 16px;
+  border-radius: 16px;
+  background: rgba(36, 230, 255, 0.09);
+  border: 1px solid rgba(36, 230, 255, 0.22);
+  color: #dce8ff;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  line-height: 1.25;
+  max-width: 100%;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.16);
+  transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+
+.project-actions a:hover {
+  transform: translateY(-2px);
+  background: rgba(36, 230, 255, 0.14);
+  border-color: rgba(36, 230, 255, 0.38);
+}
+
+.project-actions svg {
+  flex: 0 0 auto;
+  color: var(--cyan);
+  font-size: 14px;
+}
+
+.project-actions span {
+  overflow-wrap: anywhere;
 }
 
 .project-details {
@@ -2203,6 +2271,23 @@ input {
   .project-role {
     font-size: 12px !important;
     line-height: 1.45;
+  }
+
+  .project-brand-badge {
+    align-items: flex-start;
+    font-size: 11px;
+    line-height: 1.35;
+  }
+
+  .project-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .project-actions a {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 12px;
   }
 
   .project-details {

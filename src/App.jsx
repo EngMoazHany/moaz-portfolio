@@ -18,6 +18,7 @@ import {
   FaPuzzlePiece,
   FaCode,
   FaCertificate,
+  FaExternalLinkAlt,
   FaServer,
   FaTools,
   FaProjectDiagram,
@@ -70,6 +71,24 @@ const projects = [
       "Trained a Random Forest Regression model with lag features, rolling averages, category encoding, and log-target transformation.",
       "Designed an explainable Smart Saving Plan Advisor with financial guardrails and recommendation logic.",
       "Integrated the AI service through the main ASP.NET Core backend rather than direct frontend communication.",
+    ],
+    brandBadge: {
+      text: "FINEXA AI Finance Platform",
+      icon: <FaChartLine />,
+    },
+    links: [
+      {
+        text: "View Live Project",
+        href: "https://sass-pearl.vercel.app/dashboard",
+        ariaLabel: "Open FINEXA live project",
+        icon: <FaExternalLinkAlt />,
+      },
+      {
+        text: "LinkedIn Case Study",
+        href: "https://lnkd.in/p/eBNMKEps",
+        ariaLabel: "Open FINEXA LinkedIn case study post",
+        icon: <FaLinkedinIn />,
+      },
     ],
     icon: <FaBrain />,
   },
@@ -674,10 +693,33 @@ function App() {
               >
                 <div className="project-icon">{activeProject.icon}</div>
                 <h3>{activeProject.title}</h3>
+                {activeProject.brandBadge && (
+                  <div className="project-brand-badge">
+                    {activeProject.brandBadge.icon}
+                    <span>{activeProject.brandBadge.text}</span>
+                  </div>
+                )}
                 {activeProject.role && (
                   <p className="project-role">{activeProject.role}</p>
                 )}
                 <p>{activeProject.desc}</p>
+
+                {activeProject.links && (
+                  <div className="project-actions">
+                    {activeProject.links.map((link) => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={link.ariaLabel}
+                      >
+                        {link.icon}
+                        <span>{link.text}</span>
+                      </a>
+                    ))}
+                  </div>
+                )}
 
                 {activeProject.details && (
                   <ul className="project-details">
