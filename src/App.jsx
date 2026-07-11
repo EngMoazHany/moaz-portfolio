@@ -44,6 +44,7 @@ import cert1 from "./assets/cert1.png";
 import cert2 from "./assets/cert2.png";
 import cert3 from "./assets/cert3.png";
 import cert4 from "./assets/cert4.png";
+import cert5 from "./assets/cert5.png";
 import resume from "./assets/resume.pdf";
 
 const projects = [
@@ -152,6 +153,12 @@ const certificates = [
     date: "August 2023",
     image: cert4,
     type: "Zewail",
+  },
+  {
+    title: "Prompt Engineering for AI Applications",
+    subtitle: "Course Certificate-2026",
+    image: cert5,
+    type: "Course Certificate",
   },
   {
     title: "DEPI – Microsoft ML Engineer Track",
