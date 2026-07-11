@@ -40,6 +40,10 @@ import robot from "./assets/robot_transparent_3x.png";
 import project1 from "./assets/Project1.png";
 import project2 from "./assets/Project2.png";
 import project3 from "./assets/Project3.png";
+import project5 from "./assets/Project4.png";
+import project6 from "./assets/Project5.png";
+import project4 from "./assets/Project6.png";
+import project7 from "./assets/Project7.png";
 
 import cert1 from "./assets/cert1.png";
 import cert2 from "./assets/cert2.png";
@@ -91,6 +95,50 @@ const projects = [
       },
     ],
     icon: <FaBrain />,
+  },
+  {
+    title: "Mecca Al Amer Store Website",
+    role: "Client / Business Website | Bilingual React/Vite Store Website",
+    desc: "Premium bilingual store website for an Egyptian bridal home equipment and appliances business. Built with React and Vite, featuring Arabic/English language support, RTL/LTR layouts, product import from Excel, localStorage cart, WhatsApp ordering flow, product image preview modal, splash screen, mobile-first responsive design, and performance optimizations for handling 300+ products smoothly.",
+    gallery: [project4, project5,project7, project6],
+    tags: [
+      "React",
+      "Vite",
+      "Framer Motion",
+      "LocalStorage",
+      "ExcelJS",
+      "Vercel",
+    ],
+    details: [
+      "Built a premium bilingual React/Vite website for Mecca Al Amer Store.",
+      "Added Arabic and English language support with RTL/LTR layout switching.",
+      "Imported and displayed 303 products from Excel-based product data.",
+      "Implemented localStorage cart functionality.",
+      "Added WhatsApp ordering flow for customer checkout.",
+      "Added product image preview / zoom modal.",
+      "Built a splash screen and mobile-first responsive UI.",
+      "Improved performance using Load More behavior for large product lists.",
+      "Deployed the project on Vercel.",
+    ],
+    brandBadges: [
+      {
+        text: "Client Website",
+        icon: <FaBriefcase />,
+      },
+      {
+        text: "Live on Vercel",
+        icon: <FaExternalLinkAlt />,
+      },
+    ],
+    links: [
+      {
+        text: "View Live Website",
+        href: "https://mecca-alamer-store.vercel.app/",
+        ariaLabel: "Open Mecca Al Amer Store live website",
+        icon: <FaExternalLinkAlt />,
+      },
+    ],
+    icon: <FaBriefcase />,
   },
   {
     title: "Student Performance Predictor",
@@ -697,6 +745,16 @@ function App() {
                   <div className="project-brand-badge">
                     {activeProject.brandBadge.icon}
                     <span>{activeProject.brandBadge.text}</span>
+                  </div>
+                )}
+                {activeProject.brandBadges && (
+                  <div className="project-brand-badges">
+                    {activeProject.brandBadges.map((badge) => (
+                      <div className="project-brand-badge" key={badge.text}>
+                        {badge.icon}
+                        <span>{badge.text}</span>
+                      </div>
+                    ))}
                   </div>
                 )}
                 {activeProject.role && (

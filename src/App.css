@@ -924,6 +924,18 @@ input {
   overflow-wrap: anywhere;
 }
 
+.project-brand-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 14px;
+  max-width: 100%;
+}
+
+.project-brand-badges .project-brand-badge {
+  margin: 0;
+}
+
 .project-brand-badge svg {
   flex: 0 0 auto;
   color: var(--cyan);
